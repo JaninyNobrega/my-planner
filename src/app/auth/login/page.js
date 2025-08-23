@@ -1,11 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation'; //useRouter para redirecionamento
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,9 +26,16 @@ export default function LoginPage() {
       setMessage(data.message);
 
       if (res.ok) {
-        // Limpar os campos do formulário após o sucesso
+        // Recebe o token e salva em um cookie
+        Cookies.set('token', data.token, { expires: 1 }); // O token expira em 1 dia
+        
+        // Limpar os campos do formulário
         setEmail('');
         setPassword('');
+
+        // Redireciona o usuário para a página de dashboard
+        router.push('/dashboard'); 
+
       }
 
     } catch (error) {

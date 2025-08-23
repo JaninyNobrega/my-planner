@@ -1,11 +1,11 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import clientPromise from '@/lib/mongodb';
 
 export async function POST(request) {
   try {
     const { email, password } = await request.json();
 
-    // 1. Validação simples
     if (!email || !password) {
       return new Response(JSON.stringify({ message: 'Email e senha são obrigatórios.' }), {
         status: 400,
@@ -13,12 +13,10 @@ export async function POST(request) {
       });
     }
 
-    // 2. Conecte ao MongoDB e à coleção de usuários
     const client = await clientPromise;
-    const db = client.db("projeto-fullstack"); //nome do meu banco de dados no mongodb
+    const db = client.db("projeto-fullstack");
     const usersCollection = db.collection("users");
 
-    // 3. Verifique se o usuário existe
     const user = await usersCollection.findOne({ email: email });
     if (!user) {
       return new Response(JSON.stringify({ message: 'Credenciais inválidas.' }), {
@@ -27,7 +25,6 @@ export async function POST(request) {
       });
     }
 
-    // 4. Verifique a senha criptografada
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return new Response(JSON.stringify({ message: 'Credenciais inválidas.' }), {
@@ -36,7 +33,14 @@ export async function POST(request) {
       });
     }
 
-    return new Response(JSON.stringify({ message: 'Login realizado com sucesso!', user: user.email }), {
+    // Gerar o JWT
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' } // Token expira em 1 hora
+    );
+
+    return new Response(JSON.stringify({ message: 'Login realizado com sucesso!', token: token }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
