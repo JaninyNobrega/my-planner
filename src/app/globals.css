@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Paleta vibrante inspirada em dashboards (tipo monday.com) */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Cores base da interface */
+  --color-background: #0b1020; /* fundo escuro sofisticado */
+  --color-foreground: #e6eaf2;
+
+  /* Paleta de marca */
+  --color-primary:   #7c3aed; /* roxo vibrante */
+  --color-secondary: #06b6d4; /* ciano vivo */
+  --color-accent:    #f43f5e; /* rosa/cerise */
+  --color-success:   #22c55e; /* verde */
+  --color-warning:   #f59e0b; /* âmbar */
+  --color-info:      #3b82f6; /* azul */
+
+  /* Gradientes prontos */
+  --gradient-hero-from: var(--color-primary);
+  --gradient-hero-via:  var(--color-accent);
+  --gradient-hero-to:   var(--color-secondary);
+
+  /* Tipografia (se quiser usar as variáveis do template do Next) */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
+:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+}
+
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #f8fafc;  /* claro */
+    --foreground: #0b1020;
   }
+}
+
+/* Estilos globais */
+html, body {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
