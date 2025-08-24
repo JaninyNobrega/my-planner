@@ -73,7 +73,6 @@ O aplicativo estará disponível em `http://localhost:3000`.
 ├── package.json
 └── README.md              # Este arquivo
 
-
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT.

@@ -34,12 +34,12 @@ export async function POST(request) {
 
     // 4. Conecte ao banco de dados e à coleção de tarefas
     const client = await clientPromise;
-    const db = client.db("projeto-fullstack"); // Verifique se o nome do BD está correto
+    const db = client.db("projeto-fullstack"); 
     const tasksCollection = db.collection("tasks");
 
     // 5. Crie a nova tarefa
     const newTask = {
-      userId: new ObjectId(userId), // Salve o ID do usuário como um ObjectId
+      userId: new ObjectId(userId), 
       title,
       description: description || null,
       completed: false,
@@ -81,7 +81,7 @@ export async function GET(request) {
 
     // 3. Conecte ao banco de dados e busque as tarefas do usuário
     const client = await clientPromise;
-    const db = client.db("projeto-fullstack"); // Verifique o nome do BD
+    const db = client.db("projeto-fullstack"); 
     const tasksCollection = db.collection("tasks");
 
     // Busque apenas as tarefas cujo userId corresponda ao usuário logado
@@ -134,7 +134,7 @@ export async function DELETE(request) {
     const db = client.db("projeto-fullstack"); // Verifique o nome do BD
     const tasksCollection = db.collection("tasks");
 
-    // 6. Tente deletar a tarefa, verificando se o ID do usuário corresponde
+    // 6. deletar a tarefa, verificando se o ID do usuário corresponde
     const result = await tasksCollection.deleteOne({ _id: new ObjectId(id), userId: new ObjectId(userId) });
 
     if (result.deletedCount === 0) {

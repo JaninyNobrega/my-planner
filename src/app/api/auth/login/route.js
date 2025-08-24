@@ -37,7 +37,7 @@ export async function POST(request) {
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' } // Token expira em 1 hora
+      { expiresIn: '1h' } 
     );
 
     return new Response(JSON.stringify({ message: 'Login realizado com sucesso!', token: token }), {

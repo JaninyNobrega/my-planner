@@ -15,10 +15,10 @@ export async function POST(request) {
 
     // 2. Conecte ao MongoDB usando a nossa função
     const client = await clientPromise;
-    const db = client.db("projeto-fullstack"); // Nome do banco de dados
-    const usersCollection = db.collection("users"); // Coleção de usuários
+    const db = client.db("projeto-fullstack"); 
+    const usersCollection = db.collection("users"); 
 
-    // 3. Verifique se o usuário já existe
+    // 3. o usuário já existe?
     const userExists = await usersCollection.findOne({ email: email });
     if (userExists) {
       return new Response(JSON.stringify({ message: 'Este email já está em uso.' }), {
