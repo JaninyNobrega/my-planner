@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gerenciador de Tarefas Full-Stack com Next.js
 
-## Getting Started
+## Descrição do Projeto
 
-First, run the development server:
+Este é um projeto de um gerenciador de tarefas completo, construído com Next.js e MongoDB. O objetivo foi criar uma aplicação web que permite a um usuário se registrar, fazer login e gerenciar suas próprias tarefas de forma segura e eficiente.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Funcionalidades
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Autenticação Segura**: Registro de novos usuários e login com senhas criptografadas.
+* **Rotas Protegidas**: Acesso ao dashboard somente para usuários autenticados, utilizando tokens JWT.
+* **Gerenciamento Completo de Tarefas (CRUD)**:
+    * **C**riar: Adicionar novas tarefas.
+    * **L**er: Visualizar a lista de tarefas.
+    * **U**pdate: Marcar tarefas como concluídas ou editar o título.
+    * **D**eletar: Remover tarefas da lista.
+* **Comunicação Dinâmica**: A lista de tarefas é atualizada em tempo real sem a necessidade de recarregar a página.
+* **Navegação Intuitiva**: Página inicial com links para login e registro.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Tecnologias Utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Frontend**: Next.js 14, React, Tailwind CSS, `js-cookie`.
+* **Backend**: Next.js Route Handlers (API Routes), `jsonwebtoken`, `bcryptjs`.
+* **Banco de Dados**: MongoDB Atlas.
+* **Ambiente de Desenvolvimento**: Node.js, Vercel (opcional para deploy).
 
-## Learn More
+## Instalação e Execução
 
-To learn more about Next.js, take a look at the following resources:
+Para rodar o projeto localmente, siga os passos abaixo:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1.  **Clone o repositório:**
+    ```bash
+    git clone [SUA_URL_DO_REPOSITORIO]
+    cd [NOME_DO_SEU_PROJETO]
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+3.  **Configurações do Ambiente (`.env.local`):**
+    * Crie um arquivo na raiz do projeto chamado `.env.local`.
+    * Adicione suas chaves de conexão e segredos. (Não se esqueça que este arquivo é ignorado pelo Git por segurança).
+    ```env
+    MONGODB_URI=[SUA_STRING_DE_CONEXAO_DO_MONGODB]
+    JWT_SECRET=[UMA_STRING_SECRETA_E_LONGA_ALEATORIA]
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O aplicativo estará disponível em `http://localhost:3000`.
+
+## Estrutura do Projeto
