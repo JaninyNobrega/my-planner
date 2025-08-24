@@ -55,23 +55,8 @@ O aplicativo estará disponível em `http://localhost:3000`.
 
 ## Estrutura do Projeto
 
-/
-├── public/                # Assets públicos
-├── src/
-│   ├── app/
-│   │   ├── api/           # Rotas de API
-│   │   │   ├── auth/      # Rotas de login e registro
-│   │   │   └── tasks/     # Rotas CRUD para tarefas
-│   │   ├── components/    # Componentes reutilizáveis do React
-│   │   ├── auth/          # Páginas de login e registro
-│   │   ├── dashboard/     # Página protegida do usuário
-│   │   └── ...
-│   └── lib/               # Biblioteca de conexão com o MongoDB
-│
-├── .env.local             # Variáveis de ambiente
-├── .gitignore             # Arquivos ignorados pelo Git
-├── package.json
-└── README.md              # Este arquivo
+<img width="551" height="475" alt="image" src="https://github.com/user-attachments/assets/843bd179-845b-476d-8a53-e555f0caec64" />
+
 
 ## Licença
 
