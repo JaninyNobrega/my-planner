@@ -29,8 +29,8 @@ Para rodar o projeto localmente, siga os passos abaixo:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [SUA_URL_DO_REPOSITORIO]
-    cd [NOME_DO_SEU_PROJETO]
+    git clone [https://github.com/JaninyNobrega/my-planner.git]
+    cd [my-planner]
     ```
 
 2.  **Instale as dependências:**
@@ -54,3 +54,26 @@ Para rodar o projeto localmente, siga os passos abaixo:
 O aplicativo estará disponível em `http://localhost:3000`.
 
 ## Estrutura do Projeto
+
+/
+├── public/                # Assets públicos
+├── src/
+│   ├── app/
+│   │   ├── api/           # Rotas de API
+│   │   │   ├── auth/      # Rotas de login e registro
+│   │   │   └── tasks/     # Rotas CRUD para tarefas
+│   │   ├── components/    # Componentes reutilizáveis do React
+│   │   ├── auth/          # Páginas de login e registro
+│   │   ├── dashboard/     # Página protegida do usuário
+│   │   └── ...
+│   └── lib/               # Biblioteca de conexão com o MongoDB
+│
+├── .env.local             # Variáveis de ambiente
+├── .gitignore             # Arquivos ignorados pelo Git
+├── package.json
+└── README.md              # Este arquivo
+
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT.
