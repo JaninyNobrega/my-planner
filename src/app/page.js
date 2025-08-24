@@ -1,28 +1,24 @@
 import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-50">
-      <div className="w-full max-w-md p-8 space-y-6 text-center bg-white rounded-lg shadow-md">
-        <h1 className="text-4xl font-bold text-gray-900">
-          Bem-vindo ao seu Gerenciador de Tarefas
+    <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-gradient-to-br from-gray-600 to-gray-900 font-sans text-center">
+      <div className="w-full max-w-lg space-y-8 p-8 bg-white rounded-2xl shadow-2xl">
+        <h1 className="text-5xl font-extrabold text-gray-900">
+          Bem-vindo!
         </h1>
-        <p className="text-gray-600 mt-4">
-          Organize seus projetos e tarefas de forma simples e eficiente.
+        <p className="text-xl text-gray-600">
+          Seu aplicativo de gerenciamento de tarefas está pronto.
         </p>
-        <div className="flex flex-col space-y-4 mt-6">
-          <Link href="/auth/login" passHref>
-            <button className="w-full px-6 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              Entrar
-            </button>
+        <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+          <Link href="/auth/login" className="w-full md:w-auto px-8 py-3 font-semibold text-white bg-red-500 rounded-xl hover:bg-red-600 transition-colors duration-200">
+            Acessar
           </Link>
-          <Link href="/auth/register" passHref>
-            <button className="w-full px-6 py-3 text-blue-600 border border-blue-600 rounded-md hover:bg-blue-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              Registrar-se
-            </button>
+          <Link href="/auth/register" className="w-full md:w-auto px-8 py-3 font-semibold text-gray-900 border-2 border-gray-900 rounded-xl hover:bg-gray-900 hover:text-white transition-colors duration-200">
+            Registrar
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
