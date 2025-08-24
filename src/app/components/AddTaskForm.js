@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 
-export default function AddTaskForm() {
+export default function AddTaskForm({ onTaskAdded }) {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function AddTaskForm() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Envie o token na requisição
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ title }),
       });
@@ -41,6 +41,10 @@ export default function AddTaskForm() {
 
       if (res.ok) {
         setTitle('');
+        // Chame a função do componente pai para atualizar a lista
+        if (onTaskAdded) {
+          onTaskAdded();
+        }
       }
 
     } catch (error) {

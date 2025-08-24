@@ -1,45 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 
-export default function TaskList() {
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchTasks = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const token = Cookies.get('token');
-      if (!token) {
-        setError('Você não está autenticado.');
-        setLoading(false);
-        return;
-      }
-      
-      const res = await fetch('/api/tasks', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        throw new Error('Falha ao buscar as tarefas.');
-      }
-
-      const data = await res.json();
-      setTasks(data);
-
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskUpdated }) {
 
   const handleDelete = async (taskId) => {
     try {
@@ -63,7 +27,9 @@ export default function TaskList() {
         throw new Error(data.message || 'Falha ao deletar a tarefa.');
       }
 
-      setTasks(tasks.filter(task => task._id !== taskId));
+      if (onTaskDeleted) {
+        onTaskDeleted();
+      }
       
     } catch (err) {
       console.error('Erro ao deletar tarefa:', err);
@@ -93,20 +59,15 @@ export default function TaskList() {
         throw new Error(data.message || 'Falha ao atualizar a tarefa.');
       }
 
-      // Se a atualização for bem-sucedida, atualize a lista no frontend
-      setTasks(tasks.map(task => 
-        task._id === taskId ? { ...task, completed: !completed } : task
-      ));
+      if (onTaskUpdated) {
+        onTaskUpdated();
+      }
 
     } catch (err) {
       console.error('Erro ao atualizar tarefa:', err);
       alert(err.message);
     }
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
   if (loading) {
     return <div className="mt-8 text-center text-gray-500">Carregando tarefas...</div>;
