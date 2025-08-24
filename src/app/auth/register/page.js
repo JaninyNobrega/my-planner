@@ -100,6 +100,11 @@ export default function RegisterPage() {
           >
             Entrar
           </Link>
+          <div className='text-center mt-2'>
+            <Link href="/" className="font-semibold text-[#0b1020] hover:text-secondary transition-colors duration-200">
+              &larr; Voltar a página inicial
+            </Link>
+          </div>
         </div>
       </div>
     </div>

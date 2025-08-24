@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Paleta vibrante inspirada em dashboards (tipo monday.com) */
+/* Paleta de cores */
 @theme inline {
   /* Cores base da interface */
   --color-background: #0b1020; /* fundo escuro sofisticado */
@@ -19,7 +19,7 @@
   --gradient-hero-via:  var(--color-accent);
   --gradient-hero-to:   var(--color-secondary);
 
-  /* Tipografia (se quiser usar as variáveis do template do Next) */
+  /* Tipografia */
   --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }

@@ -107,8 +107,11 @@ export default function LoginPage() {
           >
             Cadastre-se
           </Link>
-        </div>
+          <div className='text-center mt-2'>
+      <Link href="/" className="font-semibold text-[#f8fafc] hover:text-secondary transition-colors duration-200">&larr; Voltar a página inicial</Link>
       </div>
+        </div>
+      </div>      
     </div>
   );
 }
