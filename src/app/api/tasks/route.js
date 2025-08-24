@@ -176,24 +176,39 @@ export async function PUT(request) {
     const userId = decodedToken.userId;
 
     // 3. Receba os dados da atualização
-    const { id, completed } = await request.json();
+    const { id, completed, title } = await request.json();
 
-    if (!id || typeof completed !== 'boolean') {
-      return new Response(JSON.stringify({ message: 'ID da tarefa e status de conclusão são obrigatórios.' }), {
+    if (!id) {
+      return new Response(JSON.stringify({ message: 'ID da tarefa é obrigatório.' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
+    const updateFields = {};
+    if (typeof completed === 'boolean') {
+        updateFields.completed = completed;
+    }
+    if (typeof title === 'string') {
+        updateFields.title = title;
+    }
+
+    if (Object.keys(updateFields).length === 0) {
+        return new Response(JSON.stringify({ message: 'Nenhum campo para atualizar fornecido.' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
     // 4. Conecte ao banco de dados
     const client = await clientPromise;
-    const db = client.db("projeto-fullstack"); // Verifique o nome do BD
+    const db = client.db("projeto-fullstack"); 
     const tasksCollection = db.collection("tasks");
 
     // 5. Tente atualizar a tarefa, verificando se o ID do usuário corresponde
     const result = await tasksCollection.updateOne(
       { _id: new ObjectId(id), userId: new ObjectId(userId) },
-      { $set: { completed: completed } }
+      { $set: updateFields }
     );
 
     if (result.matchedCount === 0) {

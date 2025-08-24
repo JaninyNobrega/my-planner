@@ -1,9 +1,11 @@
 'use client';
 
-import Cookies from 'js-cookie';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskUpdated }) {
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState('');
 
   const handleDelete = async (taskId) => {
     try {
@@ -69,6 +71,48 @@ export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskU
     }
   };
 
+  const handleEdit = (taskId, currentTitle) => {
+    setEditingTaskId(taskId);
+    setEditingTitle(currentTitle);
+  };
+
+  const handleSaveEdit = async (taskId) => {
+    try {
+      if (!editingTitle) {
+        alert('O título não pode estar vazio.');
+        return;
+      }
+      const token = Cookies.get('token');
+      if (!token) {
+        alert('Sessão expirada. Faça login novamente.');
+        return;
+      }
+
+      const res = await fetch('/api/tasks', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id: taskId, title: editingTitle }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || 'Falha ao salvar a edição.');
+      }
+
+      setEditingTaskId(null);
+      if (onTaskUpdated) {
+        onTaskUpdated();
+      }
+
+    } catch (err) {
+      console.error('Erro ao salvar edição:', err);
+      alert(err.message);
+    }
+  };
+
   if (loading) {
     return <div className="mt-8 text-center text-gray-500">Carregando tarefas...</div>;
   }
@@ -92,23 +136,62 @@ export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskU
               task.completed ? 'bg-green-100 border-green-300' : 'bg-white border-gray-200'
             }`}
           >
-            <div className="flex items-center space-x-3">
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleToggleCompleted(task._id, task.completed)}
-                className="form-checkbox h-5 w-5 text-blue-600 rounded"
-              />
-              <span className={`text-gray-800 ${task.completed ? 'line-through text-gray-500' : ''}`}>
-                {task.title}
-              </span>
+            <div className="flex items-center space-x-3 w-full">
+              {editingTaskId === task._id ? (
+                // Modo de Edição
+                <div className="flex w-full items-center">
+                  <input
+                    type="text"
+                    value={editingTitle}
+                    onChange={(e) => setEditingTitle(e.target.value)}
+                    onBlur={() => handleSaveEdit(task._id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSaveEdit(task._id);
+                      }
+                    }}
+                    className="flex-1 px-2 py-1 border border-blue-400 rounded-md focus:outline-none"
+                    autoFocus
+                  />
+                  <button
+                    onClick={() => handleSaveEdit(task._id)}
+                    className="ml-2 px-3 py-1 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                  >
+                    Salvar
+                  </button>
+                </div>
+              ) : (
+                // Modo de Visualização
+                <div className="flex items-center w-full">
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => handleToggleCompleted(task._id, task.completed)}
+                    className="form-checkbox h-5 w-5 text-blue-600 rounded"
+                  />
+                  <span
+                    className={`text-gray-800 ml-3 flex-1 ${task.completed ? 'line-through text-gray-500' : ''}`}
+                    onDoubleClick={() => handleEdit(task._id, task.title)}
+                  >
+                    {task.title}
+                  </span>
+                  <button
+                    onClick={() => handleEdit(task._id, task.title)}
+                    className="px-3 py-1 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ml-2"
+                  >
+                    Editar
+                  </button>
+                </div>
+              )}
             </div>
-            <button
-              onClick={() => handleDelete(task._id)}
-              className="px-3 py-1 text-sm text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              Deletar
-            </button>
+            {!editingTaskId && (
+                <button
+                onClick={() => handleDelete(task._id)}
+                className="ml-2 px-3 py-1 text-sm text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                Deletar
+                </button>
+            )}
           </li>
         ))}
       </ul>
