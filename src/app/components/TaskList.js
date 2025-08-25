@@ -142,7 +142,7 @@ export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskU
                   />
                   <button
                     onClick={() => handleSaveEdit(task._id)}
-                    className="ml-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                    className="ml-2 p-3 py-1 sm:p-4 text-base text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                   >
                     Salvar
                   </button>
@@ -165,7 +165,7 @@ export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskU
                   </span>
                   <button
                     onClick={() => handleEdit(task._id, task.title)}
-                    className="ml-2 px-3 py-1 text-sm text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                    className="ml-2 p-3 py-1 sm:p-4 text-base text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                   >
                     Editar
                   </button>
@@ -175,7 +175,7 @@ export default function TaskList({ tasks, loading, error, onTaskDeleted, onTaskU
             {!editingTaskId && (
               <button
                 onClick={() => handleDelete(task._id)}
-                className="ml-2 px-3 py-1 text-sm text-white bg-red-600 rounded-lg hover:bg-red-700"
+                className="ml-2 p-3 py-1 text-base sm:p-4 text-white bg-red-600 rounded-lg hover:bg-red-700"
               >
                 Deletar
               </button>

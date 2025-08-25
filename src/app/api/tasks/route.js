@@ -64,7 +64,7 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get('token');
 
     // 1. Verifique se o token de autenticação existe

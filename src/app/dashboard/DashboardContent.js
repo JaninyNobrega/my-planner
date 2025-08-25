@@ -65,7 +65,7 @@ export default function DashboardContent({ userEmail }) {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-purple-400 via-pink-500 to-blue-500 flex items-center justify-center p-2">
-      <div className="w-full max-w-2xl p-10 bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl text-white space-y-6">
+      <div className="w-full max-w-2xl p-6 sm:p-10 bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl text-white space-y-6 mx-auto">
         <header className="flex items-center justify-between">
           <div>
             <h1 className="text-5xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent">
@@ -73,13 +73,19 @@ export default function DashboardContent({ userEmail }) {
             </h1>
             <p className="mt-2 text-lg">Bem-vindo, <span className="font-semibold">{userEmail}</span>.</p>
           </div>
-          <LogoutButton />
         </header>
         {loading && <p className="text-center">Carregando tarefas...</p>}
         {error && <p className="text-center text-red-400">{error}</p>}
         <main className="space-y-6">
           <AddTaskForm onTaskAdded={fetchTasks} />
-          <TaskList tasks={tasks} loading={loading} error={error} onTaskDeleted={fetchTasks} onTaskUpdated={fetchTasks} />
+          <TaskList tasks={tasks} 
+          loading={loading} 
+          error={error} 
+          onTaskDeleted={fetchTasks} 
+          onTaskUpdated={fetchTasks} />
+          <div className="flex flex-col sm:flex-row som:justify-end gap-4">
+          <LogoutButton />
+          </div>
         </main>
       </div>
     </div>
